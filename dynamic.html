@@ -52,7 +52,7 @@ var page1 = new sap.m.Page("page1", {
                 //oModel.loadData("source.json");
                 var aData =
                         jQuery.ajax({
-                            url: "source.json",  // for different servers cross-domain restrictions need to be handled
+                            url: "json/source.json",  // for different servers cross-domain restrictions need to be handled
                             dataType: "json",
 
                             success: function (data, textStatus, jqXHR) { // callback called when data is received
