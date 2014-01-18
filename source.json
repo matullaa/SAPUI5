@@ -1,0 +1,98 @@
+{ "keys": [
+    {
+        "title": "Sales.Org",
+        "fieldName": "VKORG",
+        "fieldType": "header",
+        "type": "Dyn",
+        "selected": "2",
+        "width": "10em",
+        "selItems": [
+            {
+                "selValue": "FR11",
+                "selText": "Genevilliers"
+            },
+            {
+                "selValue": "FR10",
+                "selText": "Merignac"
+            }
+        ]
+    },
+    {
+        "title": "Distr.Chann.",
+        "fieldName": "VTWEG",
+        "fieldType": "header",
+        "type": "Dyn",
+        "selected": "2",
+        "width": "10em",
+        "selItems": [
+            {
+                "selValue": "10",
+                "selText": "Sales"
+            },
+            {
+                "selValue": "20",
+                "selText": "Project"
+            }
+        ]
+
+    }
+],
+    "prices": [
+        {
+            "title": "Material",
+            "fieldName": "MATNR",
+            "fieldType": "footer",
+            "type": "Dyn",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        },
+        {
+            "title": "Customer",
+            "fieldName": "KUNNR",
+            "fieldType": "footer",
+            "type": "Dyn",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        },
+        {
+            "title": "Price",
+            "fieldName": "KBETR",
+            "fieldType": "footer",
+            "type": "Stat",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        },
+        {
+            "title": "Currency",
+            "fieldName": "KONWA",
+            "fieldType": "footer",
+            "type": "Stat",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        },
+        {
+            "title": "Per",
+            "fieldName": "KPEIN",
+            "fieldType": "footer",
+            "type": "Stat",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        },
+        {
+            "title": "Unit",
+            "fieldName": "KMEIN",
+            "fieldType": "footer",
+            "type": "Stat",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        }
+
+    ]
+}
+

@@ -1,0 +1,103 @@
+<html>
+<head>
+    //<title>Dynamic </title>
+    <title>sap.m Explored</title>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'/>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/titles.css">
+
+    <script
+            id='sap-ui-bootstrap'
+            type='text/javascript'
+            src='https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js'
+            data-sap-ui-xx-bindingSyntax="complex"
+            data-sap-ui-theme='sap_bluecrystal'
+            data-sap-ui-libs='sap.m, sap.ui.layout'
+            data-sap-ui-compatVersion="1.16"
+            >
+    </script>
+
+    <script>
+        var App = new sap.m.App("App", {});
+        App.placeAt("content");
+        var page = new sap.m.Page("page", {title: "Pas Clair"});
+        App.addPage(page);
+        var label = new sap.m.Label({
+            text: 'Product'
+        });
+        page.addContent(label);
+
+        // Create Model for Help Input.
+        // In sap.m.explored sample MVC concept is used thus model is attached to view
+        // which is not possible here
+        // So let's create a new Model
+        var oModel = new sap.ui.model.json.JSONModel();
+
+
+        // Create the input field, binding the suggested items to the
+        // product objects in the data model
+        var input = new sap.m.Input({
+            type: sap.m.InputType.Text,
+            placeholder: 'Enter Product ...',
+            showSuggestion: true,
+            suggestionItems: {
+                path: "/ProductCollection",
+                template: new sap.ui.core.Item({
+                    text: "{Name}"
+                })
+            },
+            showValueHelp: true,
+            valueHelpRequest: function (evt) {
+
+                // Handling of both confirm and cancel; clear the filter
+                handleClose = function (evt) {
+                    var oSelectedItem = evt.getParameter("selectedItem");
+                    if (oSelectedItem) {
+                        input.setValue(oSelectedItem.getTitle());
+                    }
+                    evt.getSource().getBinding("items").filter([]);
+                };
+
+
+                // Create a SelectDialog and display it; bind to the same
+                // model as for the suggested items
+                if (!this._valueHelpSelectDialog) {
+                    this._valueHelpSelectDialog = new sap.m.SelectDialog({
+                        title: "Products",
+                        items: {
+                            path: "/ProductCollection",
+                            template: new sap.m.StandardListItem({
+                                icon: "{ProductPicUrl}",
+                                iconInset: false,
+                                title: "{Name}",
+                                description: "{ProductId}"
+                            })
+                        },
+                        search: function (evt) {
+                            var sValue = evt.getParameter("value");
+                            var oFilter = new sap.ui.model.Filter(
+                                    "Name",
+                                    sap.ui.model.FilterOperator.Contains, sValue
+                            );
+                            evt.getSource().getBinding("items").filter([oFilter]);
+                        },
+                        confirm: handleClose,
+                        cancel: handleClose
+                    });
+                }
+
+                // open dialog
+                //this._valueHelpSelectDialog.setModel(this.getModel());
+                this._valueHelpSelectDialog.setModel(oModel);
+                this._valueHelpSelectDialog.open();
+            }
+        });
+        page.addContent(input);
+    </script>
+
+</head>
+<body class='sapUiBody' id='content'>
+</body>
+</html>

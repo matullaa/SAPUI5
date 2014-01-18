@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<title>Dynamic </title>
+
+<script src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        id="sap-ui-bootstrap"
+        data-sap-ui-libs="sap.m"
+        data-sap-ui-theme="sap_bluecrystal">
+</script>
+<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+
+
+<script>
+
+// create a mobile App
+// it initializes the HTML page for mobile use and provides animated page handling
+var app = new sap.m.App("myApp", {initialPage: "page1"}); // page1 should be displayed first
+jQuery.sap.require("sap.m.MessageToast");
+
+//We do fix the models
+var keyModel = new sap.ui.model.json.JSONModel();
+var pricesModel = new sap.ui.model.json.JSONModel();
+var detailModel = new sap.ui.model.json.JSONModel();
+
+// create the first page of your application
+var page1 = new sap.m.Page("page1", {
+    title: "Initial Page",
+    content: [
+        new sap.m.Button({   // content is just one Button
+            text: "Generate content",
+            press: function () {
+                var moreColumns = {};
+                var priceJson = {};
+                var priceLineJson = {};
+
+                //Create Lists
+                //Prices Table
+                var pricesList = new sap.m.Table({
+                    headerText: "Prices List",
+                    width: 'auto'
+                });
+
+                //List of keys
+                var keyList = new sap.m.List("keysList");
+
+
+                //oModel.loadData("source.json");
+                var aData =
+                        jQuery.ajax({
+                            url: "source.json",  // for different servers cross-domain restrictions need to be handled
+                            dataType: "json",
+
+                            success: function (data, textStatus, jqXHR) { // callback called when data is received
+                                keyModel.setData(data);                   // fill the received data into the JSONModel
+                                sap.ui.getCore().setModel(keyModel);      // And pass it to Core
+                                detailModel.setData(data.prices);
+                                moreColumns = (data.prices);
+                                doPriceModel(moreColumns, priceLineJson, priceJson, pricesModel, pricesList);
+                            },
+
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert("error");
+                            }
+                        });
+
+
+                //First we create Panel for Keys list
+                var keysPanel = new sap.m.Panel({
+                    headerToolbar: new sap.m.Toolbar({
+                        content: [
+                            new sap.m.Label({ text: "Keys" }),
+                            new sap.m.ToolbarSpacer(),
+                            new sap.m.Button({ icon: "sap-icon://settings" }),
+                            new sap.m.Button({ icon: "sap-icon://drop-down-list" })
+                        ]
+                    }),
+                    infoToolbar: new sap.m.Toolbar({
+                        content: [
+                            new sap.m.Label({ text: "Please choose values for key fields"})
+                            //new sap.m.ToolbarSpacer(),
+                            // new sap.ui.core.Icon({ src: "sap-icon://add-filter" })
+                        ]
+                    })
+                });
+
+                //Item Template for keyList
+                var itemKeysTemplate = new sap.m.InputListItem({
+                    path: "/key",
+                    label: "{title}"
+                });
+
+                //Item template for sap.m.Select
+                var selItemKeysTemplate = new sap.ui.core.Item({
+                    key: "{selValue}",
+                    text: "{selText}"
+                });
+
+                // sap.m.Select
+                var hSelect = new sap.m.Select({
+                    title: "test",
+
+                    items: {
+                        path: "/keys",
+                        template: selItemKeysTemplate},
+
+                    selectedKey: {
+                        path: "/keys/selected",
+                        template: "{selected}"
+                    },
+
+                    change: function (oControlEvent) {
+                        console.log(this.getSelectedKey());
+                    }
+                });
+
+                // Aggregation of Select
+                hSelect.bindAggregation("items", "selItems", selItemKeysTemplate);
+
+                //Adding Select to itemKeysTemplate keyList
+                itemKeysTemplate.addContent(hSelect);
+
+                //key List Aggregation
+                keyList.bindAggregation("items", "/keys", itemKeysTemplate);
+
+                //keys List to Panel
+                keysPanel.addContent(keyList);
+
+                //pricesPanel
+                var pricesPanel = new sap.m.Panel({
+                    headerToolbar: new sap.m.Toolbar({
+                        content: [
+                            new sap.m.Label({ text: "Prices" }),
+                            new sap.m.ToolbarSpacer(),
+                            new sap.m.Button({
+                                icon: "sap-icon://add",
+                                press: function () {
+                                    sap.m.MessageToast.show("You press to add lines.");
+                                    app.to("page2", "flip");
+                                }
+                            }),
+                            new sap.m.Button({
+                                icon: "sap-icon://less",
+                                press: function () {
+                                    sap.m.MessageToast.show("You press to delete lines.");
+                                }
+                            })
+                        ]
+                    }),
+                    infoToolbar: new sap.m.Toolbar({
+                        content: [
+                            new sap.m.Label({ text: "Please press add to create values for prices"}),
+                            new sap.m.ToolbarSpacer()
+                            // new sap.ui.core.Icon({ src: "sap-icon://add-filter" })
+                        ]
+                    })
+                });
+
+                //Adding prices List to prices panel
+                pricesPanel.addContent(pricesList);
+
+                //Panel to page
+                page1.addContent(keysPanel);
+                page1.addContent(pricesPanel);
+            }
+        }),
+        new sap.m.Button({
+            text: "Open input Dialog",
+            press: function () {
+
+            }
+        })
+    ]
+});
+
+var page2 = new sap.m.Page("page2", {
+    title: "Selections",
+    navButtonText: "Back",
+    navButtonType: "Back",
+    showNavButton: true,
+    navButtonPress: function (oEvent) {
+        app.back();
+    },
+    content: [
+        new sap.m.Panel({
+
+            infoToolbar: new sap.m.Toolbar({
+                content: [
+                    new sap.m.Label({ text: "Please choose values for key fields"})
+                    //new sap.m.ToolbarSpacer(),
+                    // new sap.ui.core.Icon({ src: "sap-icon://add-filter" })
+                ]
+            })
+        })
+    ]
+
+});
+
+app.addPage(page1);
+app.addPage(page2);
+app.placeAt("content"); // place the App into the HTML document
+
+function doPriceModel(_columns, _line, _json, _model, _list) {
+    //initiate JSON for prices list model
+    _json.fields = new Array();
+    if (_columns) {
+        _columns.forEach(function (pVal) {
+            _line[pVal.fieldName] = "";
+
+            //Adding Columns to prices Table
+            _list.addColumn(
+                    new sap.m.Column({
+                        width: pVal.width,//"7em",
+                        header: new sap.m.Label({
+                            text: pVal.title,
+                            design: sap.m.LabelDesign.Bold
+                        })
+                    })
+            );
+        });
+    }
+    _json.fields.push(_line);
+    _model.setData(_json);
+    console.log(_json);
+}
+;
+
+</script>
+
+</head>
+<body class="sapUiBody">
+<div id="content"></div>
+</body>
+</html>

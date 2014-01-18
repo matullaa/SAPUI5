@@ -1,0 +1,87 @@
+//                    sItemTemplate.bindProperty("text", "selItems", function (aVal) {
+//                        //var sValue = new Array();
+//                        var sValue = "";
+//                        if (aVal) {
+//                            //sValue = aVal.vtext;
+//                            aVal.forEach(function (entry) {
+//                                console.log(entry.vtext);
+//                                sValue = entry.vtext;
+//                                return false;
+//                            });
+////                            jQuery.each(aVal, function(i, d) {
+////                                //if (d.type === sType) {
+////                                    sValue = d.vtext;
+////                                    return false;
+////                                //}
+////                            });
+//                        }
+//                        return sValue;
+//                    });
+
+
+            //Amount
+//            pricesList.addColumn(
+//                    new sap.m.Column({
+//                        width: "7em",
+//                        header: new sap.m.Label({
+//                            text: "Price",
+//                            design: sap.m.LabelDesign.Bold
+//                        })
+//                    })
+//            );
+//
+//            //Currency
+//            pricesList.addColumn(
+//                    new sap.m.Column({
+//                        width: "3em",
+//                        visible: false,
+//                        header: new sap.m.Label({
+//                            text: "Currency",
+//                            design: sap.m.LabelDesign.Bold
+//                        })
+//                    })
+//            );
+//
+//            //Per
+//            pricesList.addColumn(
+//                    new sap.m.Column({
+//                        width: "3em",
+//                        header: new sap.m.Label({
+//                            text: "Per",
+//                            design: sap.m.LabelDesign.Bold
+//                        })
+//                    })
+//            );
+//
+//            //Sales unit
+//            pricesList.addColumn(
+//                    new sap.m.Column({
+//                        width: "3em",
+//                        header: new sap.m.Label({
+//                            text: "Unit",
+//                            design: sap.m.LabelDesign.Bold
+//                        })
+//                    })
+//            );
+
+//            //Date From
+//            pricesList.addColumn(
+//                    new sap.m.Column({
+////                                width : "3em",
+//                        header: new sap.m.Label({
+//                            text: "Date From",
+//                            design: sap.m.LabelDesign.Bold
+//                        })
+//                    })
+//            );
+//
+//            //Date To
+//            pricesList.addColumn(
+//                    new sap.m.Column({
+////                                width : "3em",
+//                        header: new sap.m.Label({
+//                            text: "Date To",
+//                            design: sap.m.LabelDesign.Bold
+//                        })
+//                    })
+//            );
