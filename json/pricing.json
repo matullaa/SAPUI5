@@ -1,0 +1,107 @@
+{         "header": [
+    {
+        "title": "Sales.Org",
+        "fieldName": "VKORG",
+        "fieldText": "",
+        "helpType": "select",
+        "helpTable": "",
+        "type": "Dyn",
+        "selected": "2",
+        "width": "10em",
+        "selItems": [
+            {
+                "selValue": "FR11",
+                "selText": "Genevilliers"
+            },
+            {
+                "selValue": "FR10",
+                "selText": "Merignac"
+            }
+        ]
+    },
+    {
+        "title": "Distr.Chann.",
+        "fieldName": "VTWEG",
+        "fieldText": "",
+        "helpType": "select",
+        "helpTable": "",
+        "type": "Dyn",
+        "selected": "2",
+        "width": "10em",
+        "selItems": [
+            {
+                "selValue": "10",
+                "selText": "Sales"
+            },
+            {
+                "selValue": "20",
+                "selText": "Project"
+            }
+        ]
+
+    }
+],
+    "footer": [
+        {
+            "title": "Material",
+            "fieldName": "MATNR",
+            "fieldText": "MAKTX",
+            "helpType": "input",
+            "helpTable": "MAKT",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        },
+        {
+            "title": "Customer",
+            "fieldName": "KUNNR",
+            "fieldText": "NAME1",
+            "helpType": "input",
+            "helpTable": "KNA1",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        },
+        {
+            "title": "Price",
+            "fieldName": "KBETR",
+            "helpType": "",
+            "helpTable": "",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        },
+        {
+            "title": "Currency",
+            "fieldName": "KONWA",
+            "helpType": "",
+            "helpTable": "",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        },
+        {
+            "title": "Per",
+            "fieldName": "KPEIN",
+            "helpType": "",
+            "helpTable": "",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        },
+        {
+            "title": "Unit",
+            "fieldName": "KMEIN",
+            "helpType": "",
+            "helpTable": "",
+            "selected": "",
+            "width": "10em",
+            "selItems": []
+        }
+
+    ],
+
+    "prices": [
+    ]
+}
+
